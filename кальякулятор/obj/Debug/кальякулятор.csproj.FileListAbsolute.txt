@@ -1,0 +1,10 @@
+C:\Users\Kirill\Desktop\кальякулятор\кальякулятор\bin\Debug\кальякулятор.exe.config
+C:\Users\Kirill\Desktop\кальякулятор\кальякулятор\bin\Debug\кальякулятор.exe
+C:\Users\Kirill\Desktop\кальякулятор\кальякулятор\bin\Debug\кальякулятор.pdb
+C:\Users\Kirill\Desktop\кальякулятор\кальякулятор\obj\Debug\кальякулятор.csprojAssemblyReference.cache
+C:\Users\Kirill\Desktop\кальякулятор\кальякулятор\obj\Debug\кальякулятор.Form1.resources
+C:\Users\Kirill\Desktop\кальякулятор\кальякулятор\obj\Debug\кальякулятор.Properties.Resources.resources
+C:\Users\Kirill\Desktop\кальякулятор\кальякулятор\obj\Debug\кальякулятор.csproj.GenerateResource.cache
+C:\Users\Kirill\Desktop\кальякулятор\кальякулятор\obj\Debug\кальякулятор.csproj.CoreCompileInputs.cache
+C:\Users\Kirill\Desktop\кальякулятор\кальякулятор\obj\Debug\кальякулятор.exe
+C:\Users\Kirill\Desktop\кальякулятор\кальякулятор\obj\Debug\кальякулятор.pdb
