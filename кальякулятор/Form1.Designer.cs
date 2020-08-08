@@ -227,7 +227,7 @@
             this.button13.Location = new System.Drawing.Point(289, 368);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(159, 61);
-            this.button13.TabIndex = 0;
+            this.button13.TabIndex = 19;
             this.button13.Text = "=";
             this.button13.UseVisualStyleBackColor = false;
             this.button13.Click += new System.EventHandler(this.button13_Click);
@@ -294,16 +294,16 @@
             this.tbInput.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbInput.Location = new System.Drawing.Point(57, 71);
             this.tbInput.Name = "tbInput";
-            this.tbInput.ReadOnly = true;
-            this.tbInput.Size = new System.Drawing.Size(201, 27);
-            this.tbInput.TabIndex = 19;
+            this.tbInput.Size = new System.Drawing.Size(391, 27);
+            this.tbInput.TabIndex = 0;
+            this.tbInput.TextChanged += new System.EventHandler(this.tbInput_TextChanged);
             // 
             // tbOutput
             // 
             this.tbOutput.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.tbOutput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbOutput.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbOutput.Location = new System.Drawing.Point(289, 71);
+            this.tbOutput.Location = new System.Drawing.Point(289, 38);
             this.tbOutput.Name = "tbOutput";
             this.tbOutput.ReadOnly = true;
             this.tbOutput.Size = new System.Drawing.Size(159, 27);
@@ -318,7 +318,7 @@
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(55, 61);
             this.button17.TabIndex = 21;
-            this.button17.Text = ".";
+            this.button17.Text = ",";
             this.button17.UseVisualStyleBackColor = false;
             this.button17.Click += new System.EventHandler(this.button17_Click);
             // 

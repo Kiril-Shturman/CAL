@@ -27,7 +27,7 @@ namespace кальякулятор
 
 
         string line,ln;
-        int x;
+        double x;
         int cond = 0;
         void tablo(string n, string op) // ВВЫВОД ЧИСЕЛ
         {
@@ -42,11 +42,11 @@ namespace кальякулятор
             switch (cond)
                 {
                     
-                    case 1: x = x + Convert.ToInt32(line); break;
-                    case 2: x = x - Convert.ToInt32(line); break;
-                    case 3: x = x * Convert.ToInt32(line); break;
-                    case 4: x = x / Convert.ToInt32(line); break;
-                    default: { x = Convert.ToInt32(line); line = ""; break; }
+                    case 1: x = x + Convert.ToDouble(line); break;
+                    case 2: x = x - Convert.ToDouble(line); break;
+                    case 3: x = x * Convert.ToDouble(line); break;
+                    case 4: x = x / Convert.ToDouble(line); break;
+                    default: { x = Convert.ToDouble(line); line = ""; break; }
                 }
             
         }
@@ -131,8 +131,22 @@ namespace кальякулятор
 
         private void button17_Click(object sender, EventArgs e)
         {
-
+            tablo(button17.Text, null);
         }//.
+
+        private void tbInput_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                tbInput.BackColor = double.TryParse(tbInput.Text, out x) ? Color.White : Color.Red;
+            }
+            catch
+            {
+               tbInput.ForeColor = SystemColors.ControlText;
+            }
+        }
+
+      
 
         // -------------------------------------------------------------
         async private void button13_Click(object sender, EventArgs e)
