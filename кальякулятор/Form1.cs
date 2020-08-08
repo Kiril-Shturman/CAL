@@ -15,151 +15,178 @@ namespace кальякулятор
         public Form1()
         {
             InitializeComponent();
-
-
         }
-        enum Operator {
+        enum Operator
+        {
             scit,
             odcit,
             del,
             nasob,
         }
 
+        string line;
+        string ln;
 
-        string line,ln;
-        double x;
-        int cond = 0;
-        void tablo(string n, string op) // ВВЫВОД ЧИСЕЛ
-        {
-            line += n;
-            tbInput.Text = ln +=n+op;
-            tbOutput.Text = "";
-        }
-         public void math()
-        {
+        double dCurrent;
+        double dPrevDigit;
 
-            
-            switch (cond)
+        Operator? operatorLast = null;
+        bool bNeedToClear = false;
+
+        void OutputDigit(string n) // ВВЫВОД ЧИСЕЛ
+        {
+            string strInput = line + n;
+            double r;
+            if (double.TryParse(bNeedToClear? n : strInput, out r))
+            {
+                if (bNeedToClear == true)
                 {
-                    
-                    case 1: x = x + Convert.ToDouble(line); break;
-                    case 2: x = x - Convert.ToDouble(line); break;
-                    case 3: x = x * Convert.ToDouble(line); break;
-                    case 4: x = x / Convert.ToDouble(line); break;
-                    default: { x = Convert.ToDouble(line); line = ""; break; }
+                    dPrevDigit = dCurrent;
+                    dCurrent = r;
+                    line = n;
+                    tbInput.Text = line;
+
+                    bNeedToClear = false;
                 }
-            
+                else
+                {
+                    dCurrent = r;
+                    line += n;
+                    tbInput.Text = line;
+                }
+            }
+        } // ctrl + k + d
+
+        void OutputResult(string strValue, string strOperation)
+        {
+            if (strOperation == null)
+            {
+                tbOutput.Text += strValue;
+            }
+            else
+            {
+                tbOutput.Text = strValue + strOperation;
+            }
         }
+
+        //public void math()
+        //{
+        //    switch (cond)
+        //        {
+        //            case Operator.scit:  x = x + Convert.ToDouble(line); break;
+        //            case Operator.odcit: x = x - Convert.ToDouble(line); break;
+        //            case Operator.nasob: x = x * Convert.ToDouble(line); break;
+        //            case Operator.del:   x = x / Convert.ToDouble(line); break;
+        //            default: { 
+        //                ClearInput(); break; 
+        //            }
+        //        }
+
+        //}
         // ----------------------------------------------------------числа
-         
-        private void button3_Click(object sender, EventArgs e)
-        {
-            tablo(button3.Text,null);
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            tablo(button1.Text,null);
-        }
-        private void button2_Click(object sender, EventArgs e)
-        {
-            tablo(button2.Text,null);
-        }
-        private void button6_Click(object sender, EventArgs e)
-        {
-            tablo(button6.Text,null);
-        }
-        private void button5_Click(object sender, EventArgs e)
-        {
-            tablo(button5.Text,null);
 
-        }
-        private void button4_Click(object sender, EventArgs e)
-        {
-            tablo(button4.Text,null);
-        }
-        private void button9_Click(object sender, EventArgs e)
-        {
-            tablo(button9.Text,null);
-        }
-        private void button8_Click(object sender, EventArgs e)
-        {
-            tablo(button8.Text,null);
-        }
-        private void button7_Click(object sender, EventArgs e)
-        {
-            tablo(button7.Text,null);
-        }
-        private void button10_Click(object sender, EventArgs e)
-        {
-            tablo(button10.Text,null);
-        }
-        private void button14_Click(object sender, EventArgs e)
-        {
-            line = "";
-            ln = "";
-            x = 0;
-            cond = 0;
-            tbInput.Text = line;
-            tbOutput.Text = line;
-        } // del
-        private void button12_Click(object sender, EventArgs e)
-        {
-            
-            math();
-            tablo(null,button12.Text);
-            cond = 1;
-        }//+
-        private void button11_Click(object sender, EventArgs e)
-        {
-            math();
-            tablo(null, button11.Text);
-            cond = 2;
-            
-        }//-
-        private void button15_Click(object sender, EventArgs e)
-        {
-            math();
-            tablo(null, button15.Text);
-            cond = 3;
-        }//x
-         private void button16_Click(object sender, EventArgs e)
-        {
-            math();
-            tablo(null, button16.Text);
-            cond = 4;
-        }// /
-
-        private void button17_Click(object sender, EventArgs e)
-        {
-            tablo(button17.Text, null);
-        }//.
 
         private void tbInput_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                tbInput.BackColor = double.TryParse(tbInput.Text, out x) ? Color.White : Color.Red;
+                tbInput.BackColor = double.TryParse(tbInput.Text, out dCurrent) ? Color.White : Color.Red;
             }
             catch
             {
-               tbInput.ForeColor = SystemColors.ControlText;
+                tbInput.ForeColor = SystemColors.ControlText;
             }
         }
 
-      
-
-        // -------------------------------------------------------------
-        async private void button13_Click(object sender, EventArgs e)
+        private void buttonDel_Click(object sender, EventArgs e)
         {
-             math();
-            cond = 0;
-             tbOutput.Text = x.ToString();
-            await Task.Delay(10000);
-            line = "";
-            ln = "";
-            tbInput.Text = line;
-            tbOutput.Text = line;
+            ClearInput();
+        }
 
+        private void ClearInput()
+        {
+            tbInput.Text = tbOutput.Text = "";
+            dCurrent = dPrevDigit = 0;
+        }
+
+        private void buttonSub_Click(object sender, EventArgs e)
+        {
+            Operation(Operator.odcit);
+        }
+
+        private void Operation(Operator oper)
+        {
+            switch (oper)
+            {
+                case Operator.scit:
+                    OutputResult(line, " + ");
+                    break;
+                case Operator.odcit:
+                    OutputResult(line, " - ");
+                    break;
+                case Operator.nasob:
+                    OutputResult(line, " * ");
+                    break;
+                case Operator.del:
+                    OutputResult(line, " / ");
+                    break;
+                default:
+                    {
+                        ClearInput(); break;
+                    }
+            }
+
+            operatorLast = oper;
+            bNeedToClear = true;
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            Operation(Operator.scit);
+        }
+
+        private void buttonMulti_Click(object sender, EventArgs e)
+        {
+            Operation(Operator.nasob);
+        }
+
+        private void buttonDiv_Click(object sender, EventArgs e)
+        {
+            Operation(Operator.del);
+        }
+
+        private void buttonResult_Click(object sender, EventArgs e)
+        {
+            switch (operatorLast)
+            {
+                case Operator.scit:
+                    OutputResult(line + string.Format(" = {0}", dPrevDigit + dCurrent), null);
+                    dPrevDigit = dPrevDigit + dCurrent;
+                    tbInput.Text = dPrevDigit.ToString();
+                    break;
+                case Operator.odcit:
+                    OutputResult(line, $" = {dPrevDigit - dCurrent}");
+                    break;
+                case Operator.nasob:
+                    OutputResult(line, $" = {dPrevDigit * dCurrent}");
+                    break;
+                case Operator.del:
+                    OutputResult(line, $" = {dPrevDigit / dCurrent}");
+                    break;
+                default:
+                    {
+                        ClearInput(); break;
+                    }
+            }
+        }
+
+        private void buttonDigit_Click(object sender, EventArgs e)
+        {
+            if (sender.GetType() == typeof(Button))
+            {
+                Button button = (Button)sender;
+                OutputDigit(button.Text);
+            }
         }
     }
 }
