@@ -16,7 +16,7 @@ namespace кальякулятор
         {
             InitializeComponent();
         }
-        enum Operator
+        public enum Operator
         {
             scit,
             odcit,
@@ -32,29 +32,34 @@ namespace кальякулятор
 
         Operator? operatorLast = null;
         bool bNeedToClear = false;
+        const string c_strAcceptChars = "01234567890-*/+.,()";
 
         void OutputDigit(string n) // ВВЫВОД ЧИСЕЛ
         {
-            string strInput = line + n;
-            double r;
-            if (double.TryParse(bNeedToClear? n : strInput, out r))
+            if (c_strAcceptChars.IndexOf(n) != -1)
             {
-                if (bNeedToClear == true)
-                {
-                    dPrevDigit = dCurrent;
-                    dCurrent = r;
-                    line = n;
-                    tbInput.Text = line;
-
-                    bNeedToClear = false;
-                }
-                else
-                {
-                    dCurrent = r;
-                    line += n;
-                    tbInput.Text = line;
-                }
+                line += n;
             }
+
+            //double r;
+            //if (double.TryParse(bNeedToClear? n : strInput, out r))
+            //{
+            //    if (bNeedToClear == true)
+            //    {
+            //        dPrevDigit = dCurrent;
+            //        dCurrent = r;
+            //        line = n;
+            //        tbInput.Text = line;
+
+            //        bNeedToClear = false;
+            //    }
+            //    else
+            //    {
+            //        dCurrent = r;
+            //        line += n;
+            //        tbInput.Text = line;
+            //    }
+            //}
         } // ctrl + k + d
 
         void OutputResult(string strValue, string strOperation)
@@ -187,6 +192,29 @@ namespace кальякулятор
                 Button button = (Button)sender;
                 OutputDigit(button.Text);
             }
+        }
+
+        private void buttonGenerateTree_Click(object sender, EventArgs e)
+        {
+            //2 * (4-1)
+
+            Tree tree = new Tree();
+
+            tree.Node = new TreeNode()
+            {
+                oper = Operator.nasob,
+                Left = new TreeNode() { Value = 2 },
+                Right = new TreeNode()
+                {
+                    oper = Operator.odcit,
+                    Left = new TreeNode() { Value = 4 },
+                    Right = new TreeNode() { Value = 1 }
+                }
+            };
+
+            decimal result = tree.CLR(tree.Node);
+            tbOutput.Text = result.ToString();
+
         }
     }
 }
